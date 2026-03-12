@@ -1,0 +1,101 @@
+.donations-container {
+  padding: 40px 20px;
+  text-align: center;
+  min-height: 100vh;
+  background: #f5f7f9;
+  font-family: 'Poppins', sans-serif;
+}
+
+.donations-container h1 {
+  color: #1b5e20;
+  font-size: 36px;
+  margin-bottom: 30px;
+}
+
+.donations-container p {
+  color: #555;
+  font-size: 18px;
+  margin: 40px 0;
+}
+
+.table-wrapper {
+  overflow-x: auto;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+table {
+  width: 100%;
+  min-width: 1000px;
+  border-collapse: collapse;
+  background: white;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+th, td {
+  padding: 16px 20px;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+th {
+  background: #2e7d32;
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+tr:hover {
+  background: #f1f8e9;
+}
+
+td {
+  color: #333;
+  font-size: 15px;
+}
+
+.delete-btn {
+  background-color: #f44336;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.3s;
+  min-width: 70px;
+}
+
+.delete-btn:hover {
+  background-color: #d32f2f;
+}
+
+.delete-btn:disabled {
+  background-color: #ffcdd2;
+  cursor: not-allowed;
+}
+
+/* Status column styling */
+td:nth-child(4) {
+  font-weight: 500;
+  color: #2e7d32;
+}
+
+@media (max-width: 1000px) {
+  .table-wrapper {
+    overflow-x: auto;
+  }
+  table {
+    min-width: 1000px;
+  }
+}

@@ -1,0 +1,87 @@
+.donor-dashboard{
+text-align:center;
+padding:60px 20px;
+background:#F5F7F9;
+min-height:100vh;
+font-family:Poppins, sans-serif;
+}
+
+.donor-dashboard h1{
+color:#1b5e20;
+font-size:40px;
+margin-bottom:10px;
+}
+
+.donor-dashboard p{
+color:#555;
+font-size:18px;
+margin-bottom:40px;
+}
+
+.stats-container{
+display:flex;
+justify-content:center;
+gap:30px;
+flex-wrap:wrap;
+}
+
+.stat-card{
+background:white;
+padding:30px;
+width:220px;
+border-radius:12px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+transition:0.3s;
+}
+
+.stat-card:hover{
+transform:translateY(-5px);
+}
+
+.stat-card h2{
+font-size:36px;
+color:#2E7D32;
+margin-bottom:10px;
+}
+
+.stat-card p{
+color:#777;
+font-size:16px;
+}
+
+.donor-buttons{
+margin-top:50px;
+display:flex;
+justify-content:center;
+gap:25px;
+}
+
+.donate-btn{
+padding:14px 28px;
+font-size:16px;
+background:#FF7043;
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+font-weight:500;
+}
+
+.donate-btn:hover{
+background:#f4511e;
+}
+
+.history-btn{
+padding:14px 28px;
+font-size:16px;
+background:#2E7D32;
+color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+font-weight:500;
+}
+
+.history-btn:hover{
+background:#1b5e20;
+}

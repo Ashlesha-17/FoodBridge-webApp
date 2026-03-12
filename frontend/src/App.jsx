@@ -1,9 +1,12 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+
 import HomePage from "./pages/HomePage";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import NGOPage from "./pages/NGOpage";
-import DonorPage from "./pages/Donorpage";
+import DonorPage from "./pages/DonorPage";
+import DonateFood from "./pages/DonateFood";
+import MyDonations from "./pages/MyDonations";
 
 function App() {
   return (
@@ -12,8 +15,13 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
+
         <Route path="/ngo" element={<NGOPage />} />
         <Route path="/donor" element={<DonorPage />} />
+
+        <Route path="/donate" element={<DonateFood />} />
+        <Route path="/my-donations" element={<MyDonations />} />
+
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </BrowserRouter>
