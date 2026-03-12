@@ -2,32 +2,43 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
+import path from "path";
+import { fileURLToPath } from "url";
 
+// Import routes
 import authRoutes from "./routes/auth.js";
 import donorRoutes from "./routes/donor.js";
+import ngoRoutes from "./routes/ngos.js"; // NEW NGO route
 
 dotenv.config();
 
 const app = express();
 
-// ================= MIDDLEWARE =================
+// =============== MIDDLEWARE ===============
 app.use(cors({ origin: "*" }));
 app.use(express.json());
 
-// ================= ROUTES =================
+// Serve uploads folder
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
+// =============== ROUTES ===============
 // Auth routes
 app.use("/api", authRoutes);
 
 // Donor routes
 app.use("/api/donor", donorRoutes);
 
+// NGO routes
+app.use("/api/ngo", ngoRoutes);
+
 // Test route
 app.get("/", (req, res) => {
   res.send("Backend running successfully");
 });
 
-// ================= DATABASE =================
+// =============== DATABASE ===============
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
@@ -37,9 +48,8 @@ mongoose
     console.error("❌ MongoDB error:", err);
   });
 
-// ================= SERVER =================
+// =============== SERVER ===============
 const PORT = process.env.PORT || 5000;
-
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
 });

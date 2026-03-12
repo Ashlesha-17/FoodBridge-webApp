@@ -7,6 +7,7 @@ import NGOPage from "./pages/NGOpage";
 import DonorPage from "./pages/DonorPage";
 import DonateFood from "./pages/DonateFood";
 import MyDonations from "./pages/MyDonations";
+import EditNGOProfile from "./pages/EditNGOProfile";
 
 function App() {
   return (
@@ -21,6 +22,8 @@ function App() {
 
         <Route path="/donate" element={<DonateFood />} />
         <Route path="/my-donations" element={<MyDonations />} />
+
+        <Route path="/ngo/edit-profile" element={<EditNGOProfile />} />
 
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>

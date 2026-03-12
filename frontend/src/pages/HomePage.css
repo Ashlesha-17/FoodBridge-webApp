@@ -1,0 +1,125 @@
+/* main wrapper */
+
+.home-wrapper {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  font-family: "Segoe UI", sans-serif;
+
+  background-image: url("../assets/homepage.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+  text-align: center;
+  overflow: hidden;
+}
+
+/* dark overlay */
+
+.home-wrapper::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 0;
+}
+
+/* bring content above overlay */
+
+.home-wrapper > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* heading */
+
+.hero h1 {
+  font-size: 52px;
+  color: white;
+  margin-bottom: 10px;
+  letter-spacing: 1px;
+}
+
+.hero p {
+  color: white;
+  font-size: 20px;
+  margin-bottom: 50px;
+}
+
+/* cards container */
+
+.card-container {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+/* card */
+
+.card {
+  background: rgba(255,255,255,0.95);
+  padding: 35px;
+  width: 300px;
+  border-radius: 14px;
+  box-shadow: 0px 10px 30px rgba(0,0,0,0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0px 15px 35px rgba(0,0,0,0.35);
+}
+
+.card h2 {
+  color: #ff5e62;
+  margin-bottom: 10px;
+}
+
+.card p {
+  color: #555;
+  margin: 15px 0 25px 0;
+  font-size: 15px;
+}
+
+.card button {
+  padding: 12px 22px;
+  border: none;
+  background: #ff5e62;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: 0.3s;
+}
+
+.card button:hover {
+  background: #ff3b3f;
+}
+
+/* login section */
+
+.login-section {
+  margin-top: 50px;
+}
+
+.login-btn {
+  padding: 14px 30px;
+  border: none;
+  background: #222;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+.login-btn:hover {
+  background: black;
+}
