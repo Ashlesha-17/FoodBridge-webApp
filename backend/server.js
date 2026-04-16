@@ -8,7 +8,8 @@ import { fileURLToPath } from "url";
 // Import routes
 import authRoutes from "./routes/auth.js";
 import donorRoutes from "./routes/donor.js";
-import ngoRoutes from "./routes/ngos.js"; // NEW NGO route
+import ngoRoutes from "./routes/ngos.js";
+import donationRoutes from "./routes/donations.js"; // ✅ donation routes
 
 dotenv.config();
 
@@ -24,6 +25,7 @@ const __dirname = path.dirname(__filename);
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // =============== ROUTES ===============
+
 // Auth routes
 app.use("/api", authRoutes);
 
@@ -33,9 +35,12 @@ app.use("/api/donor", donorRoutes);
 // NGO routes
 app.use("/api/ngo", ngoRoutes);
 
+// Donation routes
+app.use("/api/donation", donationRoutes);
+
 // Test route
 app.get("/", (req, res) => {
-  res.send("Backend running successfully");
+  res.send("Backend running successfully 🚀");
 });
 
 // =============== DATABASE ===============

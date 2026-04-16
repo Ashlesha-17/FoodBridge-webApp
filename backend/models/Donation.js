@@ -1,42 +1,26 @@
 import mongoose from "mongoose";
 
 const donationSchema = new mongoose.Schema({
-  donorId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true
-  },
 
-  donorName: {
-    type: String,
-    required: true
-  },
+  donorId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  ngoId: { type: mongoose.Schema.Types.ObjectId, ref: "NGO", required: true },
 
-  foodType: {
-    type: String,
-    required: true
-  },
+  foodItem: { type: String, required: true },
+  quantity: { type: String, required: true },
+  expiry: { type: Date, required: true },
+  foodType: { type: String, required: true },
+  notes: { type: String },
 
-  quantity: {
-    type: String,
-    required: true
-  },
-
+  // ✅ FIXED PICKUP STRUCTURE
   pickupLocation: {
-    type: String,
-    required: true
+    addressLine: String,
+    city: String,
+    state: String,
+    pincode: String
   },
 
-  status: {
-    type: String,
-    enum: ["Pending", "Accepted", "Delivered"],
-    default: "Pending"
-  },
+  status: { type: String, default: "pending" }
 
-  createdAt: {
-    type: Date,
-    default: Date.now
-  }
-});
+}, { timestamps: true });
 
 export default mongoose.model("Donation", donationSchema);

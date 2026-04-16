@@ -1,58 +1,225 @@
-/* Page background */
 .dashboard {
-  min-height: 100vh;
-  background: linear-gradient(135deg, #f4f7f6, #e6f4ea);
-  padding: 50px 20px;
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  text-align: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #eef2ff, #dff7f2);
+  padding: 30px 50px;
+  font-family: "Segoe UI", sans-serif;
+
   display: flex;
   flex-direction: column;
-  align-items: center;
+  gap: 15px;
 }
 
-/* Title */
-.dashboard h1 {
-  margin-bottom: 40px;
-  color: #2c3e50;
+/* Header */
+.header h1 {
+  margin: 0;
+  font-size: 28px;
   font-weight: 600;
+  background: linear-gradient(90deg, #27ae60, #2ecc71);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-/* Card container */
-.dashboard-cards{
-display:grid;
-gap:30px;
+.subtitle {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 10px;
 }
 
-/* Individual card */
+/* Stats */
+.stats {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.stat-card {
+  flex: 1;
+  min-width: 160px;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  padding: 18px;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255,255,255,0.3);
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+}
+
+.stat-card h3 {
+  margin: 0;
+  font-size: 22px;
+  color: #27ae60;
+}
+
+/* Main Layout */
+.main-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 25px;
+  flex: 1;
+}
+
+/* Cards Grid */
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
+  /* Balanced spacing */
+  column-gap: 10px;
+  row-gap: 14px;
+}
+
+/* Cards */
 .card {
-  background: white;
-  padding: 40px 20px;
-  border-radius: 12px;
-  font-size: 18px;
-  font-weight: 600;
-  color: #2c3e50;
+  position: relative;
+  overflow: hidden;
+  background: rgba(255,255,255,0.88);
+  backdrop-filter: blur(12px);
+  padding: 22px;
+  border-radius: 16px;
   cursor: pointer;
-  box-shadow: 0 8px 18px rgba(0,0,0,0.08);
-  transition: all 0.25s ease;
-  width: 260px;
+
+  border: 1px solid rgba(0,0,0,0.04);
+
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  transition: all 0.35s ease, box-shadow 0.4s ease;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-/* Hover effect */
+/* Gradient border */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  padding: 1px;
+  background: linear-gradient(120deg, #27ae60, #6dd5ed);
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+/* Soft glow overlay */
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  background: radial-gradient(circle at top right, rgba(39,174,96,0.15), transparent 60%);
+  opacity: 0;
+  transition: 0.4s;
+}
+
+.card:hover::after {
+  opacity: 1;
+}
+
+/* Hover */
 .card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 25px rgba(0,0,0,0.15);
-  background: #2ecc71;
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 
+    0 15px 35px rgba(0,0,0,0.15),
+    0 0 20px rgba(39,174,96,0.25);
+  background: linear-gradient(135deg, #27ae60, #2ecc71);
   color: white;
 }
 
-/* Tablet */
-@media (max-width: 800px) {
-  .dashboard-cards {
+.card:hover p {
+  color: #f5f5f5;
+}
+
+.card.danger:hover {
+  background: linear-gradient(135deg, #e74c3c, #ff6b6b);
+}
+
+/* Text */
+.card h3 {
+  margin: 5px 0 0;
+  font-size: 18px;
+}
+
+.card p {
+  font-size: 13px;
+  color: #666;
+  transition: 0.3s;
+}
+
+/* Activity Panel */
+.activity {
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(10px);
+  padding: 20px;
+  border-radius: 16px;
+
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+.activity h2 {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+/* Activity List */
+.activity ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.activity li {
+  font-size: 13px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  transition: 0.3s;
+}
+
+.activity li:hover {
+  padding-left: 8px;
+  color: #27ae60;
+}
+
+/* Scrollbar */
+.activity::-webkit-scrollbar {
+  width: 6px;
+}
+
+.activity::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
+
+/* 🚨 Emergency Active Card */
+.card.active-emergency {
+  background: linear-gradient(135deg, #e74c3c, #ff4d4d) !important;
+  color: white;
+  box-shadow: 0 0 20px rgba(231, 76, 60, 0.6);
+}
+
+.card.active-emergency p {
+  color: #fff !important;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .main-content {
     grid-template-columns: 1fr;
   }
 
-  .card {
-    width: 100%;
-    max-width: 350px;
+  .dashboard-cards {
+    grid-template-columns: 1fr;
   }
 }

@@ -1,79 +1,141 @@
-import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import "./DonorPage.css";
 
-function DonorPage() {
+function DonorDashboard() {
+
   const navigate = useNavigate();
-  const [stats, setStats] = useState({ total: 0, pending: 0, delivered: 0 });
-  const [donorName, setDonorName] = useState("");
+
+  const [ngos, setNgos] = useState([]);
+  const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
 
-  const donorId = localStorage.getItem("userId");
-
   useEffect(() => {
-    if (!donorId || donorId === "undefined" || donorId === "null") {
-      alert("Invalid user session. Please log in again.");
-      navigate("/login");
-      return;
+    fetchNGOs();
+  }, []);
+
+  const fetchNGOs = async () => {
+    try {
+      const res = await axios.get("http://localhost:5000/api/ngo/all");
+      setNgos(res.data);
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setLoading(false);
     }
+  };
 
-    const fetchStats = async () => {
-      try {
-        const res = await axios.get(
-          `http://localhost:5000/api/donor/stats/${donorId}`
-        );
-        setDonorName(res.data.donorName || "Donor");
-        setStats({
-          total: res.data.total,
-          pending: res.data.pending,
-          delivered: res.data.delivered,
-        });
-      } catch (err) {
-        console.error("Error fetching donor stats", err);
-        alert("Failed to load dashboard. Please try again later.");
-      } finally {
-        setLoading(false);
-      }
-    };
+  // 🔍 Search filter
+  const filteredNGOs = ngos.filter((ngo) =>
+    ngo.ngoName.toLowerCase().includes(search.toLowerCase()) ||
+    ngo.city.toLowerCase().includes(search.toLowerCase()) ||
+    ngo.state.toLowerCase().includes(search.toLowerCase())
+  );
 
-    fetchStats();
-  }, [donorId, navigate]);
+  // 🔥 Sort emergency first
+  const sortedNGOs = [...filteredNGOs].sort(
+    (a, b) => b.isEmergency - a.isEmergency
+  );
 
   if (loading) {
-    return <h2 style={{ textAlign: "center" }}>Loading Dashboard...</h2>;
+    return <h2 style={{ textAlign: "center" }}>Loading NGOs...</h2>;
   }
 
   return (
-    <div className="donor-dashboard">
-      <h1>Welcome {donorName} 👋</h1>
-      <p>Manage your food donations from here</p>
+    <div className="dashboard">
 
-      <div className="stats-container">
-        <div className="stat-card">
-          <h2>{stats.total}</h2>
-          <p>Total Donations</p>
+      {/* NAVBAR */}
+      <div className="navbar">
+
+        <h2>FoodBridge Donor</h2>
+
+        <div className="nav-actions">
+
+          <input
+            type="text"
+            placeholder="Search NGO by name or location..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+
+          <button
+            className="donation-history-btn"
+            onClick={() => navigate("/my-donations")}
+          >
+            My Donations
+          </button>
+
         </div>
-        <div className="stat-card">
-          <h2>{stats.pending}</h2>
-          <p>Pending</p>
-        </div>
-        <div className="stat-card">
-          <h2>{stats.delivered}</h2>
-          <p>Delivered</p>
-        </div>
+
       </div>
 
-      <div className="donor-buttons">
-        <button className="donate-btn" onClick={() => navigate("/donate")}>
-          Donate Food
-        </button>
-        <button className="history-btn" onClick={() => navigate("/my-donations")}>
-          View My Donations
-        </button>
+      {/* NGO LIST */}
+      <div className="ngo-container">
+
+        {sortedNGOs.length === 0 ? (
+          <h3 style={{ textAlign: "center" }}>No NGOs found</h3>
+        ) : (
+          sortedNGOs.map((ngo) => (
+
+            <div
+              className={`ngo-card ${ngo.isEmergency ? "emergency" : ""}`}
+              key={ngo._id}
+            >
+
+              {/* Image */}
+              <img
+                src={`http://localhost:5000/uploads/${ngo.image}`}
+                alt="ngo"
+              />
+
+              {/* Info */}
+              <div className="ngo-info">
+
+                <h3>
+                  {ngo.ngoName}
+
+                  {ngo.isEmergency && (
+                    <span className="emergency-badge">
+                      🚨 Emergency
+                    </span>
+                  )}
+                </h3>
+
+                <p><b>Owner:</b> {ngo.owner}</p>
+                <p><b>Location:</b> {ngo.city}, {ngo.state}</p>
+                <p><b>Contact:</b> {ngo.contact}</p>
+
+              </div>
+
+              {/* Actions */}
+              <div className="ngo-actions">
+
+                <button
+                  className="view-btn"
+                  onClick={() => navigate(`/ngo-profile/${ngo._id}`)}
+                >
+                  View Profile
+                </button>
+
+                <button
+                  className="donate-btn"
+                  onClick={() => navigate(`/donate/${ngo._id}`)}
+                >
+                  Donate
+                </button>
+
+              </div>
+
+            </div>
+
+          ))
+        )}
+
       </div>
+
     </div>
   );
 }
 
-export default DonorPage;
+export default DonorDashboard;

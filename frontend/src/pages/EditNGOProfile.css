@@ -5,25 +5,65 @@
   justify-content:center;
   align-items:center;
   padding:40px;
-  font-family: "Segoe UI", sans-serif;
+  font-family:"Segoe UI", sans-serif;
 }
 
 .profile-card{
   width:750px;
   background:white;
-  padding:40px;
+  padding:50px 40px;
   border-radius:14px;
   box-shadow:0 10px 30px rgba(0,0,0,0.08);
+  text-align:center;
 }
 
+/* TITLE */
+
 .profile-card h1{
-  margin-bottom:5px;
+  margin:0;
+  margin-bottom:10px;
   color:#2c3e50;
 }
 
 .subtitle{
   color:#7f8c8d;
   margin-bottom:30px;
+}
+
+/* PROFILE IMAGE */
+
+.profile-image-section{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  margin-top:100px;
+  margin-bottom:30px;
+}
+
+.profile-image{
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  object-fit:cover;
+  border:4px solid #2ecc71;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.profile-image:hover{
+  transform:scale(1.05);
+}
+
+.upload-text{
+  font-size:13px;
+  color:#7f8c8d;
+  margin-top:8px;
+}
+
+/* FORM */
+
+.profile-form{
+  text-align:left;
 }
 
 .profile-form input{
@@ -51,26 +91,15 @@
 }
 
 .profile-form h3{
-  margin-top:10px;
+  margin-top:15px;
   margin-bottom:10px;
   color:#34495e;
 }
 
-.image-upload{
-  border:2px dashed #2ecc71;
-  padding:25px;
-  text-align:center;
-  border-radius:10px;
-  margin-bottom:25px;
-  background:#f8fffa;
-}
-
-.image-upload input{
-  border:none;
-}
+/* BUTTON */
 
 .save-btn{
-  width:100%;
+  width:60%;
   padding:14px;
   background:#2ecc71;
   border:none;
@@ -80,11 +109,29 @@
   cursor:pointer;
   font-size:16px;
   transition:0.3s;
+
+  display:block;
+  margin:20px auto;
 }
 
 .save-btn:hover{
   background:#27ae60;
 }
+
+.work-preview{
+  display:flex;
+  gap:10px;
+  margin-top:10px;
+  flex-wrap:wrap;
+}
+
+.work-img{
+  width:80px;
+  height:80px;
+  object-fit:cover;
+  border-radius:6px;
+}
+/* MOBILE */
 
 @media(max-width:800px){
 
